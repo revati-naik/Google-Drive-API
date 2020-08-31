@@ -6,6 +6,7 @@ import files_get
 import get_file_id
 import permissions
 import revisions
+import comments
 
 from apiclient import discovery
 from oauth2client import client
@@ -37,7 +38,7 @@ drive_service = discovery.build('drive', 'v2', http=http)
 
 
 
-################ UPLAOD-A-FILE ##################
+############### UPLAOD-A-FILE ##################
 # file_id = files_get.uploadFile(service=drive_service,filename='sample_text.txt', filepath='sample_text.txt', mimetype_target='application/vnd.google-apps.document', mimetype_current='text/plain')
 # updated_file_id = uploadFile('people.ipynb','people.ipynb','application/x-ipynb+json')
 
@@ -55,11 +56,12 @@ drive_service = discovery.build('drive', 'v2', http=http)
 # print(folder_id)
 
 ################ PRINT_FILE_METADATA ##################
+# file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
 file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
 # files_get.print_file_metadata(service=drive_service, file_id=folder_id)
-# files_get.print_file_metadata(service=drive_service, file_id=file_id)
+files_get.print_file_metadata(service=drive_service, file_id=file_id)
 
-################ PRINT_FILE_CONTENT ##################
+############### PRINT_FILE_CONTENT ##################
 # files_get.print_file_content(service=drive_service, file_id=file_id)
 
 ################ FILE_RENAME ##################
@@ -75,11 +77,9 @@ file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
 
 
 ################ RETRIEVE-FILE-REVISIONS ##################
-# revisions_details = revisions.retrieve_revisions(service=drive_service, file_id=file_id)
-# # print(revisions)
-# last_revision = revisions_details['revisions'][-1]
-# revision_id = last_revision['id']
-# print(revision_id)
+# revision_id, revisions_details = revisions.retrieve_revisions(service=drive_service, file_id=file_id)
+# print(revisions_details)
+# # 
 
 ################ PRINT-FILE-REVISIONS ##################
 
@@ -87,8 +87,11 @@ file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
 # print(print_revisions)
 
 ################ RETRIEVE-FILE-COMMENTS ##################
-# comments = files_get.retrieve_comments(service=drive_service, file_id=file_id)
-# print(comments)
+comment_details = comments.retrieve_comments(service=drive_service, file_id=file_id)
+# print(type(comment_details))
+# file1 = open("comments.txt","w")
+# file1.write(comment_details)
+# file1.close 
 
 ################ GET-FILE-ID ##################
 # get_file_id.get_file_id(drive_service=drive_service)
