@@ -186,23 +186,4 @@ def print_about(service):
     print ("An error occurred: ", error)
 
 
-def retrieve_comments(service, file_id):
-  """Retrieve a list of comments.
-
-  Args:
-    service: Drive API service instance.
-    file_id: ID of the file to retrieve comments for.
-  Returns:
-    List of comments.
-  """
-  try:
-
-    # fields =
-    comments = service.comments().list(fileId=file_id).execute()
-    print(comments)
-    return comments.get('items', [])
-#   except errors.HttpError, error:
-  except errors.HttpError, error:
-    print('An error occurred', error)
-  return None
 

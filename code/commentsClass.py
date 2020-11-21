@@ -38,8 +38,8 @@ class comments_class (object):
 	def print_details(self):
 		print("Author: ", self.author)
 		print("Text: ", self.text)
-		print("Content: ", self.content)
-		print("Time Stamp: ", self.time_stamp)
+		print("Comment: ", self.content)
+		print("Comment Time: ", self.time_stamp)
 		# print("Reply ID: ", self.reply_id)
 		# print("Reply Author: ", self.reply_author)
 		# print("Resolved Status: ", self.resolved_status)

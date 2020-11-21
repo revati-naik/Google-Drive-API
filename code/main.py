@@ -8,6 +8,7 @@ import permissions
 import revisions
 import comments
 
+import auth
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
@@ -24,7 +25,7 @@ try:
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
 except ImportError:
     flags = None
-import auth
+# import auth
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/drive-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/drive'
@@ -32,7 +33,6 @@ CLIENT_SECRET_FILE = 'credentials.json'
 APPLICATION_NAME = 'CareersInPlay'
 authInst = auth.auth(SCOPES,CLIENT_SECRET_FILE,APPLICATION_NAME)
 credentials = authInst.getCredentials()
-
 http = credentials.authorize(httplib2.Http())
 drive_service = discovery.build('drive', 'v2', http=http)
 
@@ -56,10 +56,11 @@ drive_service = discovery.build('drive', 'v2', http=http)
 # print(folder_id)
 
 ################ PRINT_FILE_METADATA ##################
+# file_id = '1qjy-Ys6r23J-DggcKaLM6q1ur_11Md-ZAuYlvD7FGnE'
+file_id = '1mqjMez91mi-2Gee08b_6z3tGBVUhM0g6j4frh0VtAO0'
 # file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
-file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
 # files_get.print_file_metadata(service=drive_service, file_id=folder_id)
-files_get.print_file_metadata(service=drive_service, file_id=file_id)
+# files_get.print_file_metadata(service=drive_service, file_id=file_id)
 
 ############### PRINT_FILE_CONTENT ##################
 # files_get.print_file_content(service=drive_service, file_id=file_id)
@@ -78,6 +79,7 @@ files_get.print_file_metadata(service=drive_service, file_id=file_id)
 
 ################ RETRIEVE-FILE-REVISIONS ##################
 # revision_id, revisions_details = revisions.retrieve_revisions(service=drive_service, file_id=file_id)
+# revisions.retrieve_revisions(service=drive_service, file_id=file_id)
 # print(revisions_details)
 # # 
 
@@ -87,7 +89,9 @@ files_get.print_file_metadata(service=drive_service, file_id=file_id)
 # print(print_revisions)
 
 ################ RETRIEVE-FILE-COMMENTS ##################
-comment_details = comments.retrieve_comments(service=drive_service, file_id=file_id)
+dict_to_print = comments.retrieve_comments(service=drive_service, file_id=file_id)
+print(dict_to_print)
+comments.viz_graph(dict_to_print)
 # print(type(comment_details))
 # file1 = open("comments.txt","w")
 # file1.write(comment_details)

@@ -30,10 +30,36 @@ def retrieve_revisions(service, file_id):
   try:
     revisions = service.revisions().list(fileId=file_id).execute()
     # revisions_download = service.revisions().get(revisionId=revision_id).execute()
-    # print(revisions)
+    revisions_details = revisions.get('items', [])
+    # print(revisions_details)
+    print((revisions_details[0].keys()))
 
-    # return revisions.get('items', [])
-    return revisions
+
+    for i in range(1, len(revisions_details)):
+      # print(revisions_details[i])
+      revision_id = revisions_details[i]['id']
+      print("Revision ID: ", revision_id)
+        
+      display_name = revisions_details[i]['lastModifyingUser']['displayName']
+      print("Display Name: ", display_name)
+
+      email_address = revisions_details[i]['lastModifyingUser']['emailAddress']
+      print("Email Address: ", email_address)
+
+      permission_id = revisions_details[i]['lastModifyingUser']['permissionId']
+      print("Permission ID: ", permission_id)
+
+      modified_time = revisions_details[i]['modifiedDate']
+      print("Modified Date: ", modified_time)
+
+      revision = service.revisions().get(
+        fileId=file_id, revisionId=revision_id).execute()
+      # print(revision)
+      break
+
+      print("---------------------------------------")
+
+    # return revision_id, revisions_details
   except errors.HttpError, error:
     print ("An error occurred: ", error)
   return None
