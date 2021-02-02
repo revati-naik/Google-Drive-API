@@ -5,6 +5,7 @@ import httplib2
 import os, io
 import files_get
 import get_file_id
+import csv
 
 from apiclient import discovery
 from oauth2client import client
@@ -18,7 +19,7 @@ import sys
 sys.dont_write_bytecode = True
 # ...
 
-def retrieve_revisions(service, file_id):
+def retrieve_revisions(service, file_id, file_title):
   """Retrieve a list of revisions.
 
   Args:
@@ -27,16 +28,23 @@ def retrieve_revisions(service, file_id):
   Returns:
     List of revisions.
   """
+
+  with open(file_title + "_revisions" + ".csv",'w') as file:
+        writer = csv.writer(file)
+        writer.writerow(["SN", "Author", "Email Address", "Time Stamp"])
+
+
   try:
     revisions = service.revisions().list(fileId=file_id).execute()
     # revisions_download = service.revisions().get(revisionId=revision_id).execute()
     revisions_details = revisions.get('items', [])
     # print(revisions_details)
-    print((revisions_details[0].keys()))
+    # print((revisions_details[0].keys()))
 
 
     for i in range(1, len(revisions_details)):
       # print(revisions_details[i])
+      # return
       revision_id = revisions_details[i]['id']
       print("Revision ID: ", revision_id)
         
@@ -52,15 +60,22 @@ def retrieve_revisions(service, file_id):
       modified_time = revisions_details[i]['modifiedDate']
       print("Modified Date: ", modified_time)
 
-      revision = service.revisions().get(
-        fileId=file_id, revisionId=revision_id).execute()
+      # revision = service.revisions().get(
+      #   fileId=file_id, revisionId=revision_id).execute()
       # print(revision)
-      break
+      # break
 
       print("---------------------------------------")
 
+      with open(file_title + "_revisions" + ".csv",'a') as file:
+        writer = csv.writer(file)
+        print("Writing to csv")
+        writer.writerow([i, display_name, email_address, modified_time])
+
+    # i += 1
+
     # return revision_id, revisions_details
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)
   return None
 
@@ -82,5 +97,5 @@ def print_revision(service, file_id, revision_id):
     if revision.get('pinned'):
       print ('This revision is pinned')
     return revision
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)

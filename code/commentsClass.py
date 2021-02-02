@@ -36,10 +36,10 @@ class comments_class (object):
 		# self.reply_content=reply_content
 
 	def print_details(self):
-		print("Author: ", self.author)
-		print("Text: ", self.text)
-		print("Comment: ", self.content)
-		print("Comment Time: ", self.time_stamp)
+		print("Author: ", self.author.decode('utf-8'))
+		print("Text: ", self.text.decode('utf-8'))
+		print("Comment: ", self.content.decode('utf-8'))
+		print("Comment Time: ", self.time_stamp.decode('utf-8'))
 		# print("Reply ID: ", self.reply_id)
 		# print("Reply Author: ", self.reply_author)
 		# print("Resolved Status: ", self.resolved_status)

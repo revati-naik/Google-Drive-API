@@ -3,8 +3,8 @@ from __future__ import print_function
 import httplib2
 import os, io
 import files_get
-import get_file_id
-import permissions
+# import get_file_id
+# import permissions
 import revisions
 import comments
 
@@ -56,11 +56,11 @@ drive_service = discovery.build('drive', 'v2', http=http)
 # print(folder_id)
 
 ################ PRINT_FILE_METADATA ##################
-# file_id = '1qjy-Ys6r23J-DggcKaLM6q1ur_11Md-ZAuYlvD7FGnE'
 file_id = '1mqjMez91mi-2Gee08b_6z3tGBVUhM0g6j4frh0VtAO0'
-# file_id = '1wqU9his6uDfsxLO3LSm0evNtjbcLeG7ZUEQ6Q4yS1MM'
+# file_id = '1MhXaFszOtQ0VzVuXeZP-llUbgGC7Dv40ubHYBENAQkM'
+# file_id = '1qjy-Ys6r23J-DggcKaLM6q1ur_11Md-ZAuYlvD7FGnE'
 # files_get.print_file_metadata(service=drive_service, file_id=folder_id)
-# files_get.print_file_metadata(service=drive_service, file_id=file_id)
+file_title = files_get.print_file_metadata(service=drive_service, file_id=file_id)
 
 ############### PRINT_FILE_CONTENT ##################
 # files_get.print_file_content(service=drive_service, file_id=file_id)
@@ -79,7 +79,7 @@ file_id = '1mqjMez91mi-2Gee08b_6z3tGBVUhM0g6j4frh0VtAO0'
 
 ################ RETRIEVE-FILE-REVISIONS ##################
 # revision_id, revisions_details = revisions.retrieve_revisions(service=drive_service, file_id=file_id)
-# revisions.retrieve_revisions(service=drive_service, file_id=file_id)
+# revisions.retrieve_revisions(service=drive_service, file_id=file_id, file_title=file_title)
 # print(revisions_details)
 # # 
 
@@ -89,9 +89,9 @@ file_id = '1mqjMez91mi-2Gee08b_6z3tGBVUhM0g6j4frh0VtAO0'
 # print(print_revisions)
 
 ################ RETRIEVE-FILE-COMMENTS ##################
-dict_to_print = comments.retrieve_comments(service=drive_service, file_id=file_id)
-print(dict_to_print)
-comments.viz_graph(dict_to_print)
+dict_to_print = comments.retrieve_comments(service=drive_service, file_id=file_id, file_title=file_title)
+# print(dict_to_print)
+# comments.viz_graph(dict_to_print)
 # print(type(comment_details))
 # file1 = open("comments.txt","w")
 # file1.write(comment_details)

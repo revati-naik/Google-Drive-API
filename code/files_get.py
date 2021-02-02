@@ -1,6 +1,6 @@
 from __future__ import print_function
-from apiclient import errors
-from apiclient import http
+# from apiclient import errors
+from apiclient.http import *
 import httplib2
 import os, io
 import files_get
@@ -85,9 +85,10 @@ def print_file_metadata(service, file_id):
     print("User Role: ", file['userPermission']['role'])
     print("User Permission ID: ", file['lastModifyingUser']['permissionId'])
     # print("File Name: ", file['name'])
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)
 
+  return file['title']
 
 def listFiles(size):
     results = service.files().list(
@@ -114,7 +115,7 @@ def print_file_content(service, file_id):
   try:
     print(service.files().get_media(fileId=file_id).execute())
     # print service.files().get_media(fileId=file_id).execute()
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)
 
 
@@ -133,7 +134,7 @@ def download_file(service, file_id, local_fd):
   while True:
     try:
       download_progress, done = media_request.next_chunk()
-    except errors.HttpError, error:
+    except errors.HttpError as error:
       print ("An error occurred: ", error)
       return
     if download_progress:
@@ -165,7 +166,7 @@ def rename_file(service, file_id, new_title):
         # fields='title').execute()
 
     return updated_file
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)
     return None
 
@@ -182,7 +183,7 @@ def print_about(service):
     print ("Root folder ID: ", about['rootFolderId'])
     print ("Total quota (bytes): ", about['quotaBytesTotal'])
     print ("Used quota (bytes): ", about['quotaBytesUsed'])
-  except errors.HttpError, error:
+  except errors.HttpError as error:
     print ("An error occurred: ", error)
 
 

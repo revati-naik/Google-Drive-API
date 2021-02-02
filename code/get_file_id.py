@@ -14,7 +14,7 @@ def get_file_id(drive_service):
                                             pageToken=page_token).execute()
       for file in response.get('items', []):
           # Process change
-          print 'Found file: %s (%s)' % (file.get('title'), file.get('id'))
+          print ('Found file: %s (%s)' % (file.get('title'), file.get('id')))
       page_token = response.get('nextPageToken', None)
       if page_token is None:
           break
